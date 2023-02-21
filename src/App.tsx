@@ -17,7 +17,7 @@ const animations = {
   LeftStrafe: '/animations/runLeft.glb',
   RightStrafe: '/animations/runRight.glb',
   Flying: '/animations/fly.glb',
-  Dancing: '/animations/sillydancing4.glb'
+  Dancing: '/animations/rumba-dancing2.glb'
 }
 const gltfName = 'Armature'
 
@@ -26,6 +26,7 @@ export default function App(): JSX.Element {
   const [modelPath, setModelPath] = useState<string>(
     'https://models.readyplayer.me/631f06543a656b9c323876b4.glb'
   )
+  const [userAnimations, setUserAnimations] = useState<[]>([])
   //   useEffect(() => {
   //     alert('Hello')
   //   }, [isButtonClicked])
@@ -34,6 +35,33 @@ export default function App(): JSX.Element {
     alert('Processing started')
     combineAnimations(modelPath).catch(console.error)
   }
+
+  //   const onAnimationUpload = (event) => {
+  //     if (event.target.files.length) {
+  //       Array.from(event.target.files).forEach((element) => {
+  //         let fileUrl = URL.createObjectURL(element)
+  //         let fileExt = element.name.split('.').pop()
+  //         loadModel(fileUrl, fileExt, (object) => {
+  //           let fileName = element.name.split('.')[0].replace(/\s/g, '')
+  //           fileName = fileName.charAt(0).toUpperCase() + fileName.slice(1)
+  //           if (object.animations.length > 1) {
+  //             object.animations.forEach((anim, index) => {
+  //               anim.name = fileName + index
+  //             })
+  //           } else {
+  //             if (object.animations[0].name === 'Take 001') {
+  //               object.animations[0].name = 'T-Pose (No Animation)'
+  //             } else {
+  //               object.animations[0].name = fileName
+  //             }
+  //           }
+  //           setAnimations((animations) => [...animations, object.animations])
+  //           console.log('animations', animations)
+  //           console.log('object.animations', object.animations)
+  //         })
+  //       })
+  //     }
+  //   }
 
   return (
     <>
@@ -67,14 +95,24 @@ export default function App(): JSX.Element {
               {isFromFile ? (
                 <input className={styles.inputBox} type="file" name="readyPlayerMe" />
               ) : (
-                <input
-                  className={styles.inputBox}
-                  type="url"
-                  value="https://models.readyplayer.me/631f06543a656b9c323876b4.glb"
-                  onChange={(e) => setModelPath(e.target.value)}
-                  name="readyPlayerMe"
-                  placeholder="Enter Ready Player Me URL"
-                />
+                <>
+                  {/* <input
+                    className={styles.inputBox}
+                    type="file"
+                    name="animationFile"
+                    onChange={onAnimationUpload}
+                    accept=".fbx"
+                  /> */}
+
+                  <input
+                    className={styles.inputBox}
+                    type="url"
+                    value="https://models.readyplayer.me/631f06543a656b9c323876b4.glb"
+                    onChange={(e) => setModelPath(e.target.value)}
+                    name="readyPlayerMe"
+                    placeholder="Enter Ready Player Me URL"
+                  />
+                </>
               )}
             </div>
             {/* list of checkboxes */}
@@ -132,9 +170,15 @@ async function loadAnimations(group: Group, animations: Object): Promise<void> {
 
   for (const [name, path] of Object.entries(animations)) {
     const gltf = await asyncGltfLoad(gltfLoader, path)
-
+    // if (gltf.animations.length > 1) {
+    //   gltf.animations.forEach((anim, index) => {
+    //     anim.name = name + index.toString()
+    //   })
+    // } else {
     gltf.animations[0].name = name
     group.animations.push(gltf.animations[0])
+    console.log(gltf.animations[0])
+    // }
   }
 }
 
