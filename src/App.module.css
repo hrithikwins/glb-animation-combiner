@@ -1,0 +1,50 @@
+.app {
+  @apply flex h-full min-h-screen w-full  justify-center bg-teal-700;
+}
+.body {
+  @apply flex h-full w-full flex-col items-center justify-center;
+}
+.container {
+  @apply flex h-full w-full flex-col items-center justify-center;
+}
+.heading {
+  @apply py-16 text-4xl font-bold text-white;
+}
+.subHeading {
+  @apply w-full  text-end text-2xl text-white;
+}
+
+/* button groups end */
+.buttonGroup {
+  @apply flex rounded-full bg-white shadow-lg;
+}
+
+.homeButton {
+  @apply w-[200px] cursor-pointer rounded-full bg-white py-4 text-center text-2xl font-bold text-zinc-900;
+}
+
+.isHomeActive {
+  @apply bg-zinc-900 text-white;
+}
+
+/* form */
+.formContainer {
+  @apply flex h-full w-[30%] flex-col items-center justify-center gap-4 space-y-4 pt-4;
+}
+
+.inputBox {
+  @apply flex h-full w-full flex-col rounded-lg bg-white p-4 shadow-lg;
+}
+/* checkbox */
+.checkboxContainer {
+  @apply m-4 grid h-full w-[40%] grid-cols-3 flex-col rounded-lg  p-4 shadow-lg;
+}
+.checkbox {
+  @apply flex h-full w-full  rounded-lg  p-4 shadow-lg;
+}
+.checkboxElement {
+  @apply flex h-8 w-8 flex-row items-center justify-start gap-4;
+}
+.checkboxTitle {
+  @apply h-6 text-white pl-4;
+}
